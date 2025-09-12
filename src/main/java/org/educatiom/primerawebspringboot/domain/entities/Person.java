@@ -6,11 +6,7 @@ import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
 
-@Getter
-@Setter
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
 @Table(name = "persons")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -24,19 +20,82 @@ public class Person {
     @Column(name = "last_name")
     String lastName;
     int age;
-    @Column(name = "created-at")
+    @Column(name = "created_at")
     LocalDate createdAt;
-    @Column(name = "updated-at")
+    @Column(name = "updated_at")
     LocalDate updatedAt;
-    Address address;
 
-    public Person(Long id, String name, String lastName, int age, Address address) {
-        this.id = id;
+
+    public Person() {
+    }
+
+    public Person(String name, String lastName, int age) {
         this.name = name;
         this.lastName = lastName;
         this.age = age;
-        this.address = address;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public LocalDate getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDate getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDate updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", age=" + age +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
     }
 }
+
+
 
 
