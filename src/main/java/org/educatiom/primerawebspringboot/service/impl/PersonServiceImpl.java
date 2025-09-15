@@ -10,6 +10,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Implementación de la interfaz {@link IPersonService}.
+ * <p>
+ * Contiene la lógica de negocio para las operaciones de la entidad {@link Person},
+ * interactuando con la capa de repositorio para la persistencia de datos.
+ * </p>
+ */
 @Service
 public class PersonServiceImpl implements IPersonService {
 
@@ -20,18 +27,25 @@ public class PersonServiceImpl implements IPersonService {
         this.personRepository = personRepository;
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Person> getAllPersons() {
         return personRepository.findAll();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<Person> getPersonById(Long id) {
         return personRepository.findById(id);
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Person saveOrUpdatePerson(Person person) {
         if (person.getId() != null) {
@@ -43,6 +57,9 @@ public class PersonServiceImpl implements IPersonService {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void deletePerson(Long id) {
         personRepository.deleteById(id);
@@ -50,6 +67,9 @@ public class PersonServiceImpl implements IPersonService {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public long countPersons() {
         return personRepository.count();
