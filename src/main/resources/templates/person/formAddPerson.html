@@ -11,7 +11,11 @@
 
 <h1>Formulario de Persona</h1>
 
-<form th:object="${per}" th:action="@{/persons/addNewPerson}" method="post">
+<form th:object="${per}" th:action="@{/persons/saveOrUpdatePerson}" method="post">
+    <!--Campo oculto ID-->
+    <div>
+        <input type="hidden" id="id" th:field="*{id}">
+    </div>
 
     <!--Campo Nombre-->
     <div>
@@ -42,8 +46,6 @@
 <div>
     <a th:href="@{/persons/viewPersons}">Volver al listado de personas</a>
 </div>
-
-
 
 </body>
 </html>

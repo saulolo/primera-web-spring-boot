@@ -31,20 +31,16 @@ public class PersonServiceImpl implements IPersonService {
         return personRepository.findById(id);
     }
 
-    @Override
-    public Person createPerson(Person person) {
-        logger.info("Datos persistidos exitosamente en la BD. ✔");
-        return personRepository.save(person);
-
-    }
 
     @Override
-    public Person updatePerson(Long id, Person person) {
-        if (personRepository.existsById(id)) {
-            person.setId(id);
+    public Person saveOrUpdatePerson(Person person) {
+        if (person.getId() != null) {
+            logger.info("Actualizando persona con ID: {}", person.getId());
+            return personRepository.save(person);
+        } else {
+            logger.info("Creando nueva persona.");
             return personRepository.save(person);
         }
-        throw new RuntimeException("La persona con ID" + id + " No se encuentra en la BD.");
     }
 
     @Override

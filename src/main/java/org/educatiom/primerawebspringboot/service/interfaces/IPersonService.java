@@ -11,9 +11,7 @@ public interface IPersonService {
 
     Optional<Person> getPersonById(Long id);
 
-    Person createPerson(Person person);
-
-    Person updatePerson(Long id, Person person);
+    Person saveOrUpdatePerson(Person person);
 
     void deletePerson(Long id);
 
