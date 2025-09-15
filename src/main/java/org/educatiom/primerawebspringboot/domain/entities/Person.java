@@ -3,6 +3,9 @@ package org.educatiom.primerawebspringboot.domain.entities;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
 
@@ -10,18 +13,26 @@ import java.time.LocalDate;
 @Table(name = "persons")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@EntityListeners(AuditingEntityListener.class)
 public class Person {
 
     @Id
     @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
+
     String name;
+
     @Column(name = "last_name")
     String lastName;
+
     int age;
-    @Column(name = "created_at")
+
+    @CreatedDate
+    @Column(name = "created_at", updatable = false)
     LocalDate createdAt;
+
+    @LastModifiedDate
     @Column(name = "updated_at")
     LocalDate updatedAt;
 

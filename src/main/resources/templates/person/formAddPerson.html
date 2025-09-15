@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Formulario para agregar una Persona</title>
+</head>
+<body>
+
+<h1>Formulario de Persona</h1>
+
+<form th:object="${per}" th:action="@{/persons/addNewPerson}" method="post">
+
+    <!--Campo Nombre-->
+    <div>
+        <label for="name">Nombre: </label>
+        <input type="text" th:field="*{name}" id="name" placeholder="Ingrese el nombre" required>
+    </div>
+
+    <!--Campo Apellido-->
+    <div>
+        <label for="lastname">Apellido: </label>
+        <input type="text" th:field="*{lastName}" id="lastname" placeholder="Ingrese el apellido" required>
+    </div>
+
+    <!--Campo Edad-->
+    <div>
+        <label for="age">Edad: </label>
+        <input type="number" th:field="*{age}" id="age" placeholder="Ingrese la edad">
+    </div>
+
+    <!--Botón Crear persona-->
+    <div>
+        <button type="submit">Guardar</button>
+    </div>
+
+</form>
+
+<!--Botón Listado Personas-->
+<div>
+    <a th:href="@{/persons/viewPersons}">Volver al listado de personas</a>
+</div>
+
+
+
+</body>
+</html>
