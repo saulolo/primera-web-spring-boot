@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.Thymeleaf;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -47,8 +48,15 @@ public class PersonController {
         return "person/viewPersons";
     }
 
+
     /**
      * Maneja la solicitud GET para mostrar el formulario de registro de una nueva persona.
+     * <p>
+     * Este método crea una nueva instancia de la clase {@link Person}, la añade al modelo
+     * para que el formulario de Thymeleaf la utilice y la complete. Además, carga
+     * una lista predefinida de profesiones en el modelo para poblar el menú desplegable
+     * en el formulario.
+     * </p>
      *
      * @param model El objeto {@link Model} para pasar datos a la vista.
      * @return El nombre de la vista HTML (`person/formAddPerson`).
@@ -57,6 +65,8 @@ public class PersonController {
     public String showFormAddPerson(Model model) {
         Person per = new Person();
         model.addAttribute("per", per);
+        List<String> professionList = Arrays.asList("Desarrollador", "Tester", "Arquitecto");
+        model.addAttribute("professions", professionList);
         return "person/formAddPerson";
     }
 

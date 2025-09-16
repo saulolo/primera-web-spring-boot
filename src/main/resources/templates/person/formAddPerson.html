@@ -5,46 +5,104 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Formulario para agregar una Persona</title>
+    <title>Formulario para Registrar una Persona</title>
 </head>
 <body>
 
-<h1>Formulario de Persona</h1>
+<div align="center">
 
-<form th:object="${per}" th:action="@{/persons/saveOrUpdatePerson}" method="post">
-    <!--Campo oculto ID-->
+    <h1>Formulario de Registro</h1>
+
+    <form th:object="${per}" th:action="@{/persons/saveOrUpdatePerson}" method="post">
+
+        <!--Campo oculto ID-->
+        <div>
+            <input type="hidden" id="id" th:field="*{id}">
+        </div>
+
+        <!--Campo Nombre-->
+        <div>
+            <label for="name">Nombre: </label>
+            <input type="text" th:field="*{name}" id="name" placeholder="Ingrese el nombre" required>
+        </div>
+
+        <!--Campo Apellido-->
+        <div>
+            <label for="lastName">Apellido: </label>
+            <input type="text" th:field="*{lastName}" id="lastName" placeholder="Ingrese el apellido" required>
+        </div>
+
+        <!--Campo Edad-->
+        <div>
+            <label for="age">Edad: </label>
+            <input type="number" th:field="*{age}" id="age" placeholder="Ingrese la edad">
+        </div>
+
+        <!--Campo Email-->
+        <div>
+            <label for="email">Email: </label>
+            <input type="email" th:field="*{email}" id="email" placeholder="Ingrese el email">
+        </div>
+
+        <!--Campo Password-->
+        <div>
+            <label for="password">Password: </label>
+            <input type="password" th:field="*{password}" id="password" placeholder="Ingrese el password">
+        </div>
+
+        <!--Campo Genero-->
+        <div>
+            <label>Género: </label>
+            <input type="radio" th:field="*{gender}" value="Masculino">Masculino
+            <input type="radio" th:field="*{gender}" value="Femenino">Femenino
+        </div>
+
+        <!--Campo Nota-->
+        <div>
+            <label for="note">Notas: </label>
+            <textarea rows="5" cols="225" th:field="*{note}" id="note" placeholder="Ingrese algún texto pertinente."></textarea>
+        </div>
+
+        <!--Estado civil-->
+        <div>
+            <label for="maritalStatus">Estado civil: </label>
+            <input type="checkbox" th:field="*{maritalStatus}" id="maritalStatus">
+        </div>
+
+        <!--Fecha de nacimiento-->
+        <div>
+            <label for="birthDate">Fecha de nacimiento: </label>
+            <input type="date" th:field="*{birthDate}" id="birthDate">
+        </div>
+
+        <!--Profesión-->
+        <div>
+            <label>Profesión: </label>
+            <select th:field="*{profession}">
+                <option th:each="p : ${professions}" th:value="${p}" th:text="${p}">
+
+                </option>
+            </select>
+        </div>
+
+        <!--Salario-->
+        <div>
+            <label for="salary">Salario: </label>
+            <input type="number" th:field="*{salary}" id="salary" placeholder="Ingrese el salario.">
+        </div>
+
+        <!--Botón Crear persona-->
+        <div>
+            <button type="submit">Registrar</button>
+        </div>
+
+    </form>
+
+    <!--Botón Listado Personas-->
     <div>
-        <input type="hidden" id="id" th:field="*{id}">
+        <a th:href="@{/persons/viewPersons}">Volver al listado de personas</a>
     </div>
 
-    <!--Campo Nombre-->
-    <div>
-        <label for="name">Nombre: </label>
-        <input type="text" th:field="*{name}" id="name" placeholder="Ingrese el nombre" required>
-    </div>
-
-    <!--Campo Apellido-->
-    <div>
-        <label for="lastname">Apellido: </label>
-        <input type="text" th:field="*{lastName}" id="lastname" placeholder="Ingrese el apellido" required>
-    </div>
-
-    <!--Campo Edad-->
-    <div>
-        <label for="age">Edad: </label>
-        <input type="number" th:field="*{age}" id="age" placeholder="Ingrese la edad">
-    </div>
-
-    <!--Botón Crear persona-->
-    <div>
-        <button type="submit">Guardar</button>
-    </div>
-
-</form>
-
-<!--Botón Listado Personas-->
-<div>
-    <a th:href="@{/persons/viewPersons}">Volver al listado de personas</a>
 </div>
 
 </body>
