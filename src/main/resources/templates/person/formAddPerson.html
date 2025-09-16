@@ -13,7 +13,14 @@
 
     <h1>Formulario de Registro</h1>
 
-    <form th:object="${per}" th:action="@{/persons/saveOrUpdatePerson}" method="post">
+    <form th:object="${per}" th:action="@{/persons/saveOrUpdatePerson}" method="post" novalidate>
+
+        <div th:if="${#fields.hasAnyErrors()}">
+            <ul>
+                <li th:each="err : ${#fields.allErrors()}" th:text="${err}">...</li>
+            </ul>
+        </div>
+
 
         <!--Campo oculto ID-->
         <div>
@@ -23,31 +30,36 @@
         <!--Campo Nombre-->
         <div>
             <label for="name">Nombre: </label>
-            <input type="text" th:field="*{name}" id="name" placeholder="Ingrese el nombre" required>
+            <input type="text" th:field="*{name}" id="name" placeholder="Ingrese el nombre">
+            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Error de Nombre</span>
         </div>
 
         <!--Campo Apellido-->
         <div>
             <label for="lastName">Apellido: </label>
-            <input type="text" th:field="*{lastName}" id="lastName" placeholder="Ingrese el apellido" required>
+            <input type="text" th:field="*{lastName}" id="lastName" placeholder="Ingrese el apellido">
+            <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Error de Apellido</span>
         </div>
 
         <!--Campo Edad-->
         <div>
             <label for="age">Edad: </label>
             <input type="number" th:field="*{age}" id="age" placeholder="Ingrese la edad">
+            <span th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Error de Edad</span>
         </div>
 
         <!--Campo Email-->
         <div>
             <label for="email">Email: </label>
-            <input type="email" th:field="*{email}" id="email" placeholder="Ingrese el email">
+            <input type="text" th:field="*{email}" id="email" placeholder="Ingrese el email">
+            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Error de Email</span>
         </div>
 
         <!--Campo Password-->
         <div>
             <label for="password">Password: </label>
             <input type="password" th:field="*{password}" id="password" placeholder="Ingrese el password">
+            <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Error de Password</span>
         </div>
 
         <!--Campo Genero-->
@@ -55,40 +67,47 @@
             <label>Género: </label>
             <input type="radio" th:field="*{gender}" value="Masculino">Masculino
             <input type="radio" th:field="*{gender}" value="Femenino">Femenino
+            <span th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}">Error de Género</span>
         </div>
 
         <!--Campo Nota-->
         <div>
             <label for="note">Notas: </label>
-            <textarea rows="5" cols="225" th:field="*{note}" id="note" placeholder="Ingrese algún texto pertinente."></textarea>
+            <textarea rows="5" cols="225" th:field="*{note}" id="note"
+                      placeholder="Ingrese algún texto pertinente."></textarea>
+            <span th:if="${#fields.hasErrors('note')}" th:errors="*{note}">Error de Notas</span>
         </div>
 
         <!--Estado civil-->
         <div>
             <label for="maritalStatus">Estado civil: </label>
             <input type="checkbox" th:field="*{maritalStatus}" id="maritalStatus">
+            <span th:if="${#fields.hasErrors('maritalStatus')}"
+                  th:errors="*{maritalStatus}">Error de Estado civil</span>
         </div>
 
         <!--Fecha de nacimiento-->
         <div>
             <label for="birthDate">Fecha de nacimiento: </label>
             <input type="date" th:field="*{birthDate}" id="birthDate">
+            <span th:if="${#fields.hasErrors('birthDate')}" th:errors="*{birthDate}">Error de Fecha de Nacimiento</span>
         </div>
 
         <!--Profesión-->
         <div>
             <label>Profesión: </label>
             <select th:field="*{profession}">
-                <option th:each="p : ${professions}" th:value="${p}" th:text="${p}">
-
-                </option>
+                <option th:each="p : ${professions}" th:value="${p}" th:text="${p}"></option>
             </select>
+            <span th:if="${#fields.hasErrors('profession')}" th:errors="*{profession}">Error de Profesión</span>
+
         </div>
 
         <!--Salario-->
         <div>
             <label for="salary">Salario: </label>
             <input type="number" th:field="*{salary}" id="salary" placeholder="Ingrese el salario.">
+            <span th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}">Error de Salario</span>
         </div>
 
         <!--Botón Crear persona-->

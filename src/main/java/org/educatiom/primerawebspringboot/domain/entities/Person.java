@@ -1,6 +1,7 @@
 package org.educatiom.primerawebspringboot.domain.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.annotation.CreatedDate;
@@ -23,30 +24,48 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
+    @Size(max = 50, min = 3, message = "El nombre no puede tener mas de 50 caracteres y menos de 3.")
+    @NotBlank(message = "El nombre es obligatorio.")
     String name;
 
+    @Size(max = 50, min = 3, message = "El apellido no puede tener mas de 50 caracteres y menos de 3.")
+    @NotBlank(message = "El apellido es obligatorio.")
     @Column(name = "last_name")
     String lastName;
 
+    @Size(max = 50, min = 3, message = "El email no puede tener mas de 50 caracteres y menos de 3.")
+    @Email(message = "El email no es válido.")
+    @NotBlank(message = "El email es obligatorio.")
     String email;
 
+    @Size(max = 15, min = 5, message = "El password no puede tener mas de 15 caracteres y menos de 5.")
     String password;
 
+    @NotNull(message = "El género no puede ser nulo.")
     String gender;
 
+    @Size(max = 500, message = "la nota no puede tener mas de 500 caracteres.")
     String note;
 
+    @NotNull(message = "El campo del estado civil no puede ser nulo.")
     @Column(name = "marital_status")
     Boolean maritalStatus;
 
-    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    @NotNull(message = "La fecha de nacimiento es obligatoria.")
+    @Past(message = "La fecha de nacimiento no puede ser en el futuro.")
+    @DateTimeFormat(pattern = "(yyyy-MM-dd")
     @Column(name = "birth_date")
     Date birthDate;
 
+    @NotBlank(message = "La profesión es obligatorio.")
     String profession;
 
+    @Min(value = 100_000, message = "El salario mínimo es de 100.000")
+    @Max(value = 100_000_000, message = "El salario máximo es de 100.000.000")
     Long salary;
 
+    @Min(value = 1, message = "La edad no puede ser menos de 1 año.")
+    @Max(value = 150, message = "La edad no puede ser mayor de 150 años.")
     int age;
 
     @CreatedDate

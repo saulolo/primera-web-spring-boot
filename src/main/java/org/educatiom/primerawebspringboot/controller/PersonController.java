@@ -1,11 +1,13 @@
 package org.educatiom.primerawebspringboot.controller;
 
+import jakarta.validation.Valid;
 import org.educatiom.primerawebspringboot.domain.entities.Person;
 import org.educatiom.primerawebspringboot.service.interfaces.IPersonService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.Thymeleaf;
 
@@ -70,21 +72,36 @@ public class PersonController {
         return "person/formAddPerson";
     }
 
+
     /**
      * Maneja la solicitud POST para guardar o actualizar una persona.
      * <p>
-     * Este método es el punto de entrada unificado para crear y actualizar personas.
-     * Utiliza {@link ModelAttribute} para enlazar los datos del formulario a un objeto {@link Person}
-     * y delega la lógica de negocio al servicio.
+     * Este método valida el objeto {@link Person} recibido del formulario.
+     * Si la validación falla, agrega los mensajes de error al modelo y regresa
+     * al formulario de registro. Si la validación es exitosa, guarda la persona
+     * en la base de datos y redirige a la vista de lista de personas.
      * </p>
-     * @param person El objeto {@link Person} que contiene los datos del formulario. Si tiene un ID, se actualizará; de lo contrario, se creará.
-     * @return Una redirección a la ruta de la lista de personas para ver los cambios.
+     *
+     * @param person El objeto {@link Person} que se va a validar, guardar o actualizar.
+     * @param result El objeto {@link BindingResult} que contiene los resultados de la validación.
+     * @param model  El objeto {@link Model} para pasar atributos a la vista.
+     * @return La vista del formulario si hay errores de validación, o una redirección a la lista de personas si es exitoso.
      */
     @PostMapping("/saveOrUpdatePerson")
-    public String saveOrUpdatePerson(@ModelAttribute Person person) {
-        personService.saveOrUpdatePerson(person);
-        return "redirect:/persons/viewPersons";
+    public String saveOrUpdatePerson(@Valid @ModelAttribute  Person person, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            result.getAllErrors().forEach(error -> logger.info("Validation error: {}", error));
+
+            List<String> professionList = Arrays.asList("Desarrollador", "Tester", "Arquitecto");
+            model.addAttribute("professions", professionList);
+            model.addAttribute("per", person);
+            return "person/formAddPerson";
+        } else {
+            personService.saveOrUpdatePerson(person);
+            return "redirect:/persons/viewPersons";
+        }
     }
+
 
     /**
      * Maneja la solicitud GET para mostrar el formulario de actualización de una persona.
@@ -104,6 +121,7 @@ public class PersonController {
         model.addAttribute("per", person);
         return "person/formAddPerson";
     }
+
 
     /**
      * Maneja la solicitud POST para eliminar una persona de la base de datos.
