@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -26,7 +27,7 @@
             <th>Profesión</th>
             <th>Salario</th>
             <th>Edad</th>
-            <th>Acciones</th>
+            <th sec:authorize="hasRole('ADMIN')">Acciones</th>
         </tr>
         </thead>
         <tbody>
@@ -43,8 +44,7 @@
             <td th:text="${person.profession}"></td>
             <td th:text="${person.salary}"></td>
             <td th:text="${person.age}"></td>
-            <td>
-
+            <td sec:authorize="hasRole('ADMIN')">
                 <a th:href="@{/persons/formUpdatePerson/{id}(id=${person.id})}">Editar</a>
 
                 <form th:action="@{/persons/deletePerson/{id}(id=${person.id})}" method="post" style="display:inline;">
@@ -54,7 +54,9 @@
         </tr>
         </tbody>
     </table>
-    <a th:href="@{/persons/formNewPerson}">Crear Persona</a>
+    <div sec:authorize="hasRole('ADMIN')">
+        <a th:href="@{/persons/formNewPerson}">Crear Persona</a>
+    </div>
     <br>
     <a th:href="@{/persons/viewPersons}">Volver Listado de Personas</a>
 </div>
