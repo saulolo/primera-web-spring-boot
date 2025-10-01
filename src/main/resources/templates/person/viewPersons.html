@@ -9,51 +9,55 @@
 </head>
 
 <body>
-<h1>Lista de Personas</h1>
-<table>
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Nombre</th>
-        <th>Apellido</th>
-        <th>Email</th>
-        <th>Password</th>
-        <th>Genero</th>
-        <th>Notas</th>
-        <th>Estado civil</th>
-        <th>Fecha de Nacimiento</th>
-        <th>Profesión</th>
-        <th>Salario</th>
-        <th>Edad</th>
-        <th>Acciones</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="person : ${personList}">
-        <td th:text="${person.id}"></td>
-        <td th:text="${person.name}"></td>
-        <td th:text="${person.lastName}"></td>
-        <td th:text="${person.email}"></td>
-        <td th:text="${person.password}"></td>
-        <td th:text="${person.gender}"></td>
-        <td th:text="${person.note}"></td>
-        <td th:text="${person.maritalStatus}"></td>
-        <td th:text="${person.birthDate}"></td>
-        <td th:text="${person.profession}"></td>
-        <td th:text="${person.salary}"></td>
-        <td th:text="${person.age}"></td>
-        <td>
+<div align="center">
+    <h1>Lista de Personas</h1>
+    <table border="1" cellpadding="10">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>
+            <th>Password</th>
+            <th>Genero</th>
+            <th>Notas</th>
+            <th>Estado civil</th>
+            <th>Fecha de Nacimiento</th>
+            <th>Profesión</th>
+            <th>Salario</th>
+            <th>Edad</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="person : ${personList}">
+            <td th:text="${person.id}"></td>
+            <td th:text="${person.name}"></td>
+            <td th:text="${person.lastName}"></td>
+            <td th:text="${person.email}"></td>
+            <td th:text="${person.password}"></td>
+            <td th:text="${person.gender}"></td>
+            <td th:text="${person.note}"></td>
+            <td th:text="${person.maritalStatus}"></td>
+            <td th:text="${person.birthDate}"></td>
+            <td th:text="${person.profession}"></td>
+            <td th:text="${person.salary}"></td>
+            <td th:text="${person.age}"></td>
+            <td>
 
-            <a th:href="@{/persons/formUpdatePerson/{id}(id=${person.id})}" >Editar</a>
+                <a th:href="@{/persons/formUpdatePerson/{id}(id=${person.id})}">Editar</a>
 
-            <form th:action="@{/persons/deletePerson/{id}(id=${person.id})}" method="post" style="display:inline;">
-                <button type="submit">Eliminar</button>
-            </form>
-        </td>
-    </tr>
-    </tbody>
-</table>
-<a th:href="@{/persons/formNewPerson}">Crear Persona</a>
+                <form th:action="@{/persons/deletePerson/{id}(id=${person.id})}" method="post" style="display:inline;">
+                    <button type="submit">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/persons/formNewPerson}">Crear Persona</a>
+    <br>
+    <a th:href="@{/persons/viewPersons}">Volver Listado de Personas</a>
+</div>
 
 </body>
 </html>

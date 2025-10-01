@@ -88,7 +88,7 @@ public class PersonController {
      * @return La vista del formulario si hay errores de validación, o una redirección a la lista de personas si es exitoso.
      */
     @PostMapping("/saveOrUpdatePerson")
-    public String saveOrUpdatePerson(@Valid @ModelAttribute  Person person, BindingResult result, Model model) {
+    public String saveOrUpdatePerson(@ModelAttribute @Valid  Person person, BindingResult result, Model model) {
         if (result.hasErrors()) {
             result.getAllErrors().forEach(error -> logger.info("Validation error: {}", error));
 
