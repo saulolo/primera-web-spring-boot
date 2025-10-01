@@ -43,7 +43,7 @@ public class PersonController {
      * @param model El objeto {@link Model} para pasar datos a la vista.
      * @return El nombre de la vista HTML (`person/viewPersons`).
      */
-    @GetMapping({"/viewPersons"})
+    @GetMapping({"/viewPersons", "/"})
     public String getAllPersons(Model model) {
         List<Person> personList = personService.getAllPersons();
         model.addAttribute("personList", personList);

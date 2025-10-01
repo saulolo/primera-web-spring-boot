@@ -2,6 +2,7 @@ package org.educatiom.primerawebspringboot.config;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+
 /**
  * Clase de utilidad para generar contraseñas cifradas usando BCrypt.
  * Se utiliza para obtener la versión cifrada de una contraseña simple
