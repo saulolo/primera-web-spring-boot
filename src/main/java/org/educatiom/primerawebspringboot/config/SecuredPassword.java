@@ -8,6 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  * Se utiliza para obtener la versión cifrada de una contraseña simple
  * y poder almacenarla de forma segura en la configuración de usuarios.
  */
+@Deprecated
 public class SecuredPassword {
 
     public static void main(String[] args) {

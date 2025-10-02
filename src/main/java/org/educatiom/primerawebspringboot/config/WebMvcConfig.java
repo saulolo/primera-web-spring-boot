@@ -9,6 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * Implementa {@code WebMvcConfigurer} para personalizar la configuración por defecto.
  */
 @Configuration
+@Deprecated
 public class WebMvcConfig implements WebMvcConfigurer {
 
     /**
