@@ -55,13 +55,6 @@
             <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Error de Email</span>
         </div>
 
-        <!--Campo Password-->
-        <div>
-            <label for="password">Password: </label>
-            <input type="password" th:field="*{password}" id="password" placeholder="Ingrese el password">
-            <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Error de Password</span>
-        </div>
-
         <!--Campo Genero-->
         <div>
             <label>Género: </label>

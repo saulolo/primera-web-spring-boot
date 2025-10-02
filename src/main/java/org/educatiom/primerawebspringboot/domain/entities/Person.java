@@ -20,6 +20,7 @@ import java.util.Date;
 public class Person {
 
     @Id
+    @Column(name = "person_id")
     @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -37,9 +38,6 @@ public class Person {
     @Email(message = "El email no es válido.")
     @NotBlank(message = "El email es obligatorio.")
     String email;
-
-    @Size(max = 15, min = 5, message = "El password no puede tener mas de 15 caracteres y menos de 5.")
-    String password;
 
     @NotNull(message = "El género no puede ser nulo.")
     String gender;
@@ -86,12 +84,11 @@ public class Person {
         this.age = age;
     }
 
-    public Person(String name, String lastName, String email, String password, String gender, String note,
+    public Person(String name, String lastName, String email, String gender, String note,
                   Boolean maritalStatus, Date birthDate, String profession, Long salary, int age) {
         this.name = name;
         this.lastName = lastName;
         this.email = email;
-        this.password = password;
         this.gender = gender;
         this.note = note;
         this.maritalStatus = maritalStatus;
@@ -132,14 +129,6 @@ public class Person {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getGender() {
@@ -221,7 +210,6 @@ public class Person {
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
                 ", gender='" + gender + '\'' +
                 ", note='" + note + '\'' +
                 ", maritalStatus=" + maritalStatus +
