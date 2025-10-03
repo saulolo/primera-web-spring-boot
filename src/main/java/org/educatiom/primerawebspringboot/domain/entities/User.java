@@ -8,6 +8,10 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 @Entity
 @Table(name = "users")
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -33,19 +37,22 @@ public class User {
     @Column(name = "enabled")
     private boolean enabled;
 
-    @Size(max = 50, min = 3, message = "El rol no puede tener mas de 50 caracteres y menos de 3.")
-    @NotBlank(message = "El rol es obligatorio.")
-    @Column(name = "role")
-    String role;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<>();
 
     public User() {
     }
 
-    public User(String username, String password, boolean enabled, String role) {
+    public User(String username, String password, boolean enabled, Set<Role> roles) {
         this.username = username;
         this.password = password;
         this.enabled = enabled;
-        this.role = role;
+        this.roles = roles;
     }
 
     public Long getId() {
@@ -80,12 +87,12 @@ public class User {
         this.enabled = enabled;
     }
 
-    public String getRole() {
-        return role;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     @Override
@@ -94,8 +101,8 @@ public class User {
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", enabled=" + enabled +
-                ", role='" + role + '\'' +
+                ", enabled=" + enabled + '\'' +
+                ", roles=" + roles +
                 '}';
     }
 }

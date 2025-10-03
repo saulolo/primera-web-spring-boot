@@ -1,12 +1,12 @@
 package org.educatiom.primerawebspringboot.service.impl;
 
+import org.educatiom.primerawebspringboot.domain.entities.Role;
 import org.educatiom.primerawebspringboot.domain.entities.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Arrays;
-import java.util.Collection;
+import java.util.*;
 
 /**
  * Adaptador para Spring Security que envuelve la entidad {@link User} de la aplicación.
@@ -23,14 +23,16 @@ public class MyUserDetails implements UserDetails {
     private User user;
 
 
-    /**
-     * Devuelve los roles/autoridades del usuario como una colección.
-     * @return Una colección que contiene el rol del usuario como SimpleGrantedAuthority.
-     */
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(user.getRole());
-        return Arrays.asList(authority);
+        Set<Role> roles = user.getRoles();
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+
+        for (Role role : roles) {
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        }
+        return authorities;
     }
 
     /**
